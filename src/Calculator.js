@@ -11,13 +11,18 @@ const Calculator = () => {
       setResult("");
     } else if (value === "=") {
       try {
-        const evalResult = eval(input);
-        if (isNaN(evalResult)) {
-          setResult("NaN");
-        } else if (!isFinite(evalResult)) {
-          setResult("Infinity");
+        // Check if the input is a valid expression
+        if (!input || /[+\-*/]$/.test(input)) {
+          setResult("Error");
         } else {
-          setResult(evalResult.toString());
+          const evalResult = eval(input);
+          if (isNaN(evalResult)) {
+            setResult("NaN");
+          } else if (!isFinite(evalResult)) {
+            setResult("Infinity");
+          } else {
+            setResult(evalResult.toString());
+          }
         }
       } catch (error) {
         setResult("Error");
